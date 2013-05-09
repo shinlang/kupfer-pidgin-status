@@ -21,11 +21,11 @@ OBJECT_NAME = "/im/pidgin/purple/PurpleObject"
 IFACE_NAME = "im.pidgin.purple.PurpleInterface"
 
 # Pidgin status
-STATUS_OFFLINE = 4092
-STATUS_AVAILABLE = 65
-STATUS_UNAVAILABLE = 7762
-STATUS_INVISIBLE = 9005
-STATUS_AWAY = 6527
+STATUS_OFFLINE = 1
+STATUS_AVAILABLE = 2
+STATUS_UNAVAILABLE = 3
+STATUS_INVISIBLE = 4
+STATUS_AWAY = 5
 
 def _create_dbus_connection(activate=False):
 	interface = None
@@ -47,22 +47,21 @@ def _create_dbus_connection(activate=False):
 
 
 def _set_pidgin_status(text, present=False):
-	status = 0
-	if text == "on":
-		status = STATUS_AVAILABLE
-	elif text == "off":
-		status = STATUS_OFFLINE
-	elif text == "away":
-		status = STATUS_AWAY
-	elif text == "dnd":
-		status = STATUS_UNAVAILABLE
-	elif text == "inv":
-		status = STATUS_INVISIBLE
-		
+
 	interface = _create_dbus_connection()
 	if not interface:
 		return
-	interface.PurpleSavedstatusActivate(status)
+
+	if text == "on":
+		interface.PurpleSavedstatusActivate(interface.PurpleSavedstatusNew("", STATUS_AVAILABLE))
+	elif text == "off":
+		interface.PurpleSavedstatusActivate(interface.PurpleSavedstatusNew("", STATUS_OFFLINE))
+	elif text == "away":
+		interface.PurpleSavedstatusActivate(interface.PurpleSavedstatusNew("", STATUS_AWAY))
+	elif text == "dnd":
+		interface.PurpleSavedstatusActivate(interface.PurpleSavedstatusNew("", STATUS_UNAVAILABLE))
+	elif text == "inv":
+		interface.PurpleSavedstatusActivate(interface.PurpleSavedstatusNew("", STATUS_INVISIBLE))
 
 class SetStatus(Action):
 	""" Set status for Pidgin """
