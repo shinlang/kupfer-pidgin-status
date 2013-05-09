@@ -17,8 +17,8 @@ The plugin uses TextLeafs, so type "." to start text mode, then enter any of the
 
 #### Commands:
 
-on - Set status to available
-off - Set status to offline
-away - Set status to away
-dnd - Set status to DND
-inv - Set status to invisible
+on - Set status to available     
+off - Set status to offline        
+away - Set status to away      
+dnd - Set status to DND     
+inv - Set status to invisible     
